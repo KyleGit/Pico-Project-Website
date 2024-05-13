@@ -36,8 +36,32 @@ nav a {
     font-size: 16px;
     border: none;
   }
-  
-
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  .sidebar {
+    flex: 1; 
+    margin: 0 20px;
+  }
+  .left-sidebar {
+    margin-left: 0;
+  }
+  .right-sidebar {
+    margin-right: 0;
+  }
+  .main-content {
+    flex: 3; 
+    text-align: center;
+    font-size: large;
+    padding: 5px;
+  }
+  img {
+    width: 300px;
+    height: auto;
+}
   .dropdown {
     position: relative;
     display: inline-block; */
