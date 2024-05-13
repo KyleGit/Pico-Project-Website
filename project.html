@@ -17,15 +17,13 @@
               <a href="project.html">Project</a>
             </div>
           </div>
-        <a href="#about">placeholder</a>
-        <a href="#team">placeholder</a>
-        <a href="#technologies">placeholder</a>
-        <a href="#gallery">placeholder</a>
+        <a href="#about">Hardware</a>
+        <a href="#Software">Software</a>
     </nav>
 
 
-    <section id="about">
-        <h2>About</h2>
+    <section id="Hardware">
+        <h2>Hardware Rundown</h2>
         <p>This system designed around the Raspberry Pi Pico microcontroller uses a combination of a sound sensor 
         and an LCD display to monitor the noise levels within an environment, providing a visual alert when the detected
         sound exceeds a preset threshold. Written in MicroPython, this setup leverages the simplicity and flexibility of
@@ -36,7 +34,31 @@
             <li>Sound Sensor</li>
             <li>LCD Display</li>
         </ul>
-        
+    </section>
+    <section id="Software">
+        <h2>Software Rundown</h2>
+        <p>The MicroPython code can be broken down into several main blocks:</p>
+        <dl>
+        <ul>
+            <li>Library Imports</li>
+            <dd>-lcd1602: A custom library downloaded off the moodle page and uploaded directly to the Pico designated for controlling the LCD1602
+                display via I2C.</dd>
+            <dd>-machine: Provides access to various hardware components like I2C, ADC (Analog to Digital Converter), and Pin objects.</dd>
+            <dd>-utime: For implementing delays in the program.</dd>
+            <li>Initial Setip</li>
+            <dd>-The sound sensor's analog output is connected to pin 26 of the Pi Pico,
+                and is set up to provide a digital representation of the sound (analog) using the ADC (Analog to Digital Converter)</dd>
+            <dd>-The I2C communication setup for the LCD involves specifying the Pi Pico's I2C1 interface and the SCL and SDA
+                pins (7 and 6, respectively), with a communication frequency of 400 kHz.</dd>
+            <li>Main Loop</li>
+            <dd>-Sound Detection: The loop continuously monitors the analog value read from the sound sensor.
+                By calling adc.read_u16(), it reads a 16-bit value that represents the intensity of the sound detected.</dd>
+            <dd>Threshold Check: It then compares this value to a predefined threshold (25000 in this case). This threshold represents the sensitivity of the sound detection. The higher the threshold, the louder the sound has to be to trigger the detection. Adjusting this threshold is key to calibrating the system according to the noise levels one intends to monitor.</dd>
+            <dd>Display Message: If the sound level exceeds the threshold, the LCD first clears any previous message, prints "High! " to indicate a high sound level, waits for 1 second (to allow the user to read the message), and then clears the display again. This immediate feedback loop acts as an alert mechanism.</dd>
+            <dd>Delay: There's a brief delay (0.1 seconds) at the end of the loop to prevent excessive updating, which can make the display difficult to read and also unnecessarily burden the Pi Pico's processor whilst also making sure it is updating often enough to accuratly measure the sound level.</dd>
+        </ul>
+        </dl>
+    <div class="break"></div>
     <footer>
         <p>&copy; GNJ</p>
     </footer>
